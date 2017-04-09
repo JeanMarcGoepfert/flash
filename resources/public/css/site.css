@@ -29,6 +29,11 @@ a {
 a:hover {
   text-decoration: underline;
 }
+button:focus,
+textarea:focus,
+input:focus {
+  outline: 0;
+}
 .verb-search .input-wrapper {
   position: relative;
   border: 1px solid #ccc;
@@ -38,6 +43,8 @@ a:hover {
   font-size: 2em;
   line-height: 1em;
   border: 0;
+  display: inline-block;
+  width: 100%;
   background: transparent;
   height: 45px;
 }
@@ -49,19 +56,21 @@ a:hover {
   height: 100%;
 }
 .verb-search .suggestion-text {
+  display: inline-block;
   padding: 1em;
   font-size: 2em;
   padding-right: 0;
-  display: inline-flex;
-  align-items: center;
   min-height: 45px;
   height: 45px;
   line-height: 1em;
+  border: 0;
 }
 .verb-search .common-suggestion {
   opacity: 0;
 }
 .verb-search .remaining-suggestion {
+  position: relative;
+  margin-left: -0.9px;
   padding-left: 0;
-  opacity: 0.8;
+  opacity: 0.5;
 }

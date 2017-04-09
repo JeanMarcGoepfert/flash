@@ -84,7 +84,7 @@
      [:div.input-wrapper
       [:span.suggestion-wrapper
        [:span.suggestion-text.common-suggestion input-value]
-       [:span.suggestion-text.remaining-suggestion (replace-first input-suggestion (re-pattern input-value) "")]]
+       [:input.suggestion-text.remaining-suggestion {:value (replace-first input-suggestion (re-pattern input-value) "")}]]
       [:input.input.main-input {:on-change #(change-handler (-> % .-target .-value))
                :auto-focus true
                :value input-value

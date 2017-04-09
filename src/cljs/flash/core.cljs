@@ -1,7 +1,5 @@
 (ns flash.core
-    (:require [reagent.core :as reagent :refer [atom]]
-              [reagent.session :as session]
-              [flash.routes]
+    (:require [reagent.core :as reagent]
               [flash.components :refer [app]]
               [secretary.core :as secretary :include-macros true]
               [accountant.core :as accountant]))

@@ -6,7 +6,7 @@
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring-server "0.4.0"]
-                 [reagent "0.6.0"]
+                 [reagent "0.6.1"]
                  [reagent-utils "0.2.0"]
                  [ring "1.5.0"]
                  [ring/ring-defaults "0.2.1"]
@@ -105,7 +105,7 @@
                    :source-paths ["env/dev/clj"]
                    :plugins [[lein-figwheel "0.5.8"]
                              [lein-doo "0.1.6"]
-                             
+
                              [lein-less "1.7.5"]]
 
                    :injections [(require 'pjstadig.humane-test-output)

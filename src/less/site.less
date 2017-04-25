@@ -39,7 +39,7 @@ input:focus {
   outline:0;
 }
 
-.verb-search {
+.omni-select {
   .input-wrapper {
     position: relative;
     border: 1px solid #ccc;
@@ -56,7 +56,7 @@ input:focus {
     height: 45px;
   }
 
-  .suggestion-wrapper {
+  .input-suggestion-wrapper {
     position: absolute;
     left: 0;
     z-index: -1;
@@ -64,7 +64,7 @@ input:focus {
     height: 100%;
   }
 
-  .suggestion-text {
+  .input-suggestion-text {
     display: inline-block;
     padding: 1em;
     font-size: 2em;
@@ -73,24 +73,24 @@ input:focus {
     height: 45px;
     line-height: 1em;
     border: 0;
+
+    &.common {
+      opacity: 0;
+    }
+
+    &.remaining {
+      position: relative;
+      margin-left: -0.9px;
+      padding-left: 0;
+      opacity: 0.5;
+    }
   }
 
-  .common-suggestion {
-    opacity: 0;
+  .tab-suggestions-wrapper {
+    position: relative ;
   }
 
-  .remaining-suggestion {
-    position: relative;
-    margin-left: -0.9px;
-    padding-left: 0;
-    opacity: 0.5;
-  }
-
-  .suggestion-box-wrapper {
-    position: relative;
-  }
-
-  .tab-options {
+  .tab-suggestions {
     width: 100%;
     z-index: 1;
     background: #fff;
@@ -100,15 +100,15 @@ input:focus {
     list-style: none;
   }
 
-  .tab-option {
+  .tab-suggestion {
     padding: 0.7em;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     cursor: pointer;
-  }
 
-  .active-tab-option {
-    background-color: #f1f1f1;
+    &.active {
+      background-color: #f1f1f1;
+    }
   }
 }

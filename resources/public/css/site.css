@@ -34,11 +34,11 @@ textarea:focus,
 input:focus {
   outline: 0;
 }
-.verb-search .input-wrapper {
+.omni-select .input-wrapper {
   position: relative;
   border: 1px solid #ccc;
 }
-.verb-search .input {
+.omni-select .input {
   padding: 1em;
   font-size: 2em;
   line-height: 1em;
@@ -48,14 +48,14 @@ input:focus {
   background: transparent;
   height: 45px;
 }
-.verb-search .suggestion-wrapper {
+.omni-select .input-suggestion-wrapper {
   position: absolute;
   left: 0;
   z-index: -1;
   width: 100%;
   height: 100%;
 }
-.verb-search .suggestion-text {
+.omni-select .input-suggestion-text {
   display: inline-block;
   padding: 1em;
   font-size: 2em;
@@ -65,19 +65,19 @@ input:focus {
   line-height: 1em;
   border: 0;
 }
-.verb-search .common-suggestion {
+.omni-select .input-suggestion-text.common {
   opacity: 0;
 }
-.verb-search .remaining-suggestion {
+.omni-select .input-suggestion-text.remaining {
   position: relative;
   margin-left: -0.9px;
   padding-left: 0;
   opacity: 0.5;
 }
-.verb-search .suggestion-box-wrapper {
-  position: relative;
+.omni-select .tab-suggestions-wrapper {
+  position: relative ;
 }
-.verb-search .tab-options {
+.omni-select .tab-suggestions {
   width: 100%;
   z-index: 1;
   background: #fff;
@@ -86,13 +86,13 @@ input:focus {
   padding: 0;
   list-style: none;
 }
-.verb-search .tab-option {
+.omni-select .tab-suggestion {
   padding: 0.7em;
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   cursor: pointer;
 }
-.verb-search .active-tab-option {
+.omni-select .tab-suggestion.active {
   background-color: #f1f1f1;
 }

@@ -91,4 +91,4 @@
       [suggestion-text input-suggestion input-value]
       [input verbs input-value]]
      [tab-suggestions input-value on-change]
-     [:button {:type "submit"} "submit"]]))
+     [:button.button {:type "submit"}]]))

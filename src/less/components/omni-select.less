@@ -1,0 +1,72 @@
+.omni-select {
+  .input-wrapper {
+    position: relative;
+    border: 1px solid @color-grey;
+  }
+
+  .input {
+    padding: @spacing-sm;
+    font-size: @font-size-xlg;
+    border: 0;
+    display: inline-block;
+    width: 100%;
+    background: transparent;
+  }
+
+  .input-suggestion-wrapper {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .input-suggestion-text {
+    display: inline-block;
+    padding: @spacing-sm;
+    font-size: @font-size-xlg;
+    padding-right: 0;
+    border: 0;
+
+    &.common {
+      opacity: 0;
+    }
+
+    &.remaining {
+      position: relative;
+      margin-left: -0.9px;
+      padding-left: 0;
+      opacity: 0.5;
+    }
+  }
+
+  .tab-suggestions-wrapper {
+    position: relative ;
+  }
+
+  .tab-suggestions {
+    width: 100%;
+    z-index: 1;
+    background: #fff;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tab-suggestion {
+    padding: 0.7em;
+    border-bottom: 1px solid @color-grey;
+    border-left: 1px solid @color-grey;
+    border-right: 1px solid @color-grey;
+    cursor: pointer;
+
+    &.active {
+      background-color: @color-light-grey;
+    }
+  }
+
+  .button {
+    display: none;
+  }
+}

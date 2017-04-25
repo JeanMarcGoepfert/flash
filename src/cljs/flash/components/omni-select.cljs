@@ -2,19 +2,17 @@
     (:require [reagent.core :as reagent :refer [atom]]
               [clojure.string :refer [starts-with? replace-first]]))
 
-(def db
-  (reagent/atom {:verb-input ""
-                 :suggestions []
-                 :option-tab-index 0
-                 :verb-input-component nil}))
+(def db-defaults {:verb-input ""
+                  :suggestions []
+                  :option-tab-index 0})
+
+(def db (reagent/atom db-defaults))
 
 (defn get-active-suggestion [db]
   (nth (db :suggestions) (db :option-tab-index) ""))
 
 (defn reset-input-state []
-  (swap! db assoc :verb-input "")
-  (swap! db assoc :suggestions [])
-  (swap! db assoc :option-tab-index 0))
+  (reset! db db-defaults))
 
 (defn filter-verbs [verbs input-value]
   (if (empty? input-value)
@@ -51,9 +49,10 @@
                     (count (@db :suggestions))))))))
 
 (defn change-handler [value verbs]
-  (swap! db assoc :verb-input value)
-  (swap! db assoc :suggestions (filter-verbs verbs value))
-  (swap! db assoc :option-tab-index 0))
+  (let [new-state {:verb-input value
+                   :suggestions (filter-verbs verbs value)
+                   :option-tab-index 0}]
+    (reset! db new-state)))
 
 (defn tab-suggestions [input-value on-change]
   (if (not (empty? input-value))
@@ -63,27 +62,33 @@
        [:ul.tab-suggestions
         (map-indexed
           (fn [index verb]
-            [:li.tab-suggestion {:key verb
-                                 :on-click #(click-handler % verb on-change)
-                                 :class-name (if (= index tab-index) "active")}
+            [:li.tab-suggestion
+             {:key verb
+              :on-click #(click-handler % verb on-change)
+              :class-name (if (= index tab-index) "active")}
              verb])
           matches)]])))
+
+(defn suggestion-text [input-suggestion input-value]
+  [:span.input-suggestion-wrapper
+   [:span.input-suggestion-text.common input-value]
+   [:input.input-suggestion-text.remaining
+    {:value (replace-first input-suggestion (re-pattern input-value) "")
+     :read-only true}]])
+
+(defn input [verbs input-value]
+  [:input.input
+   {:on-key-down #(key-down-handler %)
+    :on-change #(change-handler (-> % .-target .-value) verbs)
+    :value input-value
+    :tab-index 0}])
 
 (defn omni-select [verbs on-change]
   (let [input-value (@db :verb-input)
         input-suggestion (get-active-suggestion @db)]
     [:form.omni-select {:on-submit #(submit-handler % on-change)}
      [:div.input-wrapper
-      [:span.input-suggestion-wrapper
-       [:span.input-suggestion-text.common input-value]
-       [:input.input-suggestion-text.remaining
-        {:value (replace-first input-suggestion (re-pattern input-value) "")
-         :read-only true
-         }]]
-      [:input.input
-       {:on-key-down #(key-down-handler %)
-        :on-change #(change-handler (-> % .-target .-value) verbs)
-        :value input-value
-        :tab-index 0}]]
+      [suggestion-text input-suggestion input-value]
+      [input verbs input-value]]
      [tab-suggestions input-value on-change]
      [:button {:type "submit"} "submit"]]))

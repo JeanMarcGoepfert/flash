@@ -1,13 +1,52 @@
-@color-light-grey: #f1f1f1;
-@color-grey: #ccc;
-@spacing-sm: 0.8em;
-@spacing-md: 1em;
-@spacing-lg: 1.2em;
-@font-size-sm: 0.8em;
-@font-size-md: 1em;
-@font-size-lg: 1.5em;
-@font-size-xlg: 2em;
-@font-size-xxlg: 2.5em;
+@import "variables";
 
-@import "reset.less";
-@import "components/omni-select.less";
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.2em;
+}
+
+@import "reset";
+@import "components/omni-select";
+
+//pages
+.page-wrapper {
+  max-width: 750px;
+  padding-top: 72px;
+  margin: 0 auto;
+}
+
+.verb-card {
+  margin: @spacing-sm 0;
+  clear: both;
+
+  &:after, &:before {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
+  .tense-column {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    float: left;
+
+    &:last-child {
+      border-right: 1px solid @color-grey;
+    }
+  }
+
+  .tense-row {
+    padding: @spacing-sm;
+    border-left: 1px solid @color-grey;
+    border-bottom: 1px solid @color-grey;
+
+    &:first-child {
+      border-top: 1px solid @color-grey;
+    }
+  }
+}

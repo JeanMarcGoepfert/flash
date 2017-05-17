@@ -1,41 +1,3 @@
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  font-size: 14px;
-  color: #333;
-  line-height: 1.2em;
-}
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-h1,
-h2,
-h3 {
-  color: #000;
-}
-h1 {
-  font-size: 2.5em;
-}
-h2 {
-  font-size: 2em;
-}
-h3 {
-  font-size: 1.5em;
-}
-a {
-  text-decoration: none;
-  color: #09f;
-}
-a:hover {
-  text-decoration: underline;
-}
-button:focus,
-textarea:focus,
-input:focus {
-  outline: 0;
-}
 .omni-select .input-wrapper {
   position: relative;
   border: 1px solid #cccccc;
@@ -95,37 +57,4 @@ input:focus {
 }
 .omni-select .button {
   display: none;
-}
-.page-wrapper {
-  max-width: 750px;
-  padding-top: 72px;
-  margin: 0 auto;
-}
-.verb-card {
-  margin: 0.8em 0;
-  clear: both;
-}
-.verb-card:after,
-.verb-card:before {
-  content: "";
-  clear: both;
-  display: block;
-}
-.verb-card .tense-column {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 50%;
-  float: left;
-}
-.verb-card .tense-column:last-child {
-  border-right: 1px solid #cccccc;
-}
-.verb-card .tense-row {
-  padding: 0.8em;
-  border-left: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
-}
-.verb-card .tense-row:first-child {
-  border-top: 1px solid #cccccc;
 }

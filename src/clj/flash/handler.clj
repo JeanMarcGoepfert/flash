@@ -1,8 +1,9 @@
 (ns flash.handler
-  (:require [compojure.core :refer [GET defroutes]]
+  (:require [compojure.core :refer [GET defroutes context]]
             [compojure.route :refer [not-found resources]]
             [hiccup.page :refer [include-js include-css html5]]
-            [flash.middleware :refer [wrap-middleware]]
+            [flash.middleware :refer [wrap-app wrap-api]]
+            [cheshire.core :as json]
             [config.core :refer [env]]))
 
 (def mount-target
@@ -26,9 +27,32 @@
      mount-target
      (include-js "/js/app.js")]))
 
+(def verbs
+  (json/parse-string (slurp "resources/verbs.json")))
 
-(defroutes routes
+(def verb-lists
+  (into {} (map (fn [[k v]] [k (v :meta :verb_english)]) verbs)))
+
+(defn verb-list []
+  {:body verb-lists})
+
+(defn get-verb [{params :params}]
+  {:body (verbs (params :verb))})
+
+(defroutes api-routes
+  (context
+    "/api" []
+    (GET "/verb-list" _ (verb-list))
+    (GET "/verb/:verb" req (get-verb req)))
+  )
+
+(defroutes client-routes
   (resources "/")
   (GET "*" [] (loading-page)))
 
-(def app (wrap-middleware #'routes))
+
+(defroutes routes
+  (wrap-api api-routes)
+  (wrap-app client-routes))
+
+(def app routes)

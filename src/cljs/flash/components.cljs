@@ -1,57 +1,68 @@
 (ns flash.components
-    (:require [reagent.core :as reagent :refer [atom]]
-              [clojure.string :refer [starts-with? replace-first]]
-              [reagent.session :as session]
-              [flash.data :refer [db]]
-              [flash.routes :refer [reference]]
-              [flash.components.omni-select :refer [omni-select]]
-              [secretary.core :as secretary :include-macros true]
-              [accountant.core :as accountant]))
-
-(def verbs
-  {"comer" {"presento" {"yo" "como"
-                        "tu" "comes"
-                        "el" "come"
-                        "nosotros" "comemos"
-                        "vosotros" "comeis"
-                        "ellos" "comen"}
-            "indefinido" {"yo" "comi" "tu" "comiste"}
-            "sindefinido" {"yo" "comi" "tu" "comiste"}
-            "ssindefinido" {"yo" "comi" "tu" "comiste"}
-            "sssindefinido" {"yo" "comi" "tu" "comiste"}
-            "isddndefinido" {"yo" "comi" "tu" "comiste"}}
-   "habar" {"present" {"yo" "hablo" "tu" "hablas"}}
-   "hablar" {"present" {"yo" "hablo" "tu" "hablas"}}
-   "habars" {"present" {"yo" "hablo" "tu" "hablas"}}
-   "hablarss" {"present" {"yo" "hablo" "tu" "hablas"}}
-   "hablarsss" {"present" {"yo" "hablo" "tu" "hablas"}}
-   "hablarssss" {"present" {"yo" "hablo" "tu" "hablas"}}
-   "hablarsssss" {"present" {"yo" "hablo" "tu" "hablas"}}
-   })
-
-(defn verb-list [verbs]
-  (let [[first-3 last-3] (partition-all 3 verbs)]
-    [:div
-     [:ul.tense-column
-      (for [[subject verb] first-3]
-        [:li.tense-row {:key subject}
-         [:span (str subject " " verb)]])]
-     [:ul.tense-column
-      (for [[subject verb] last-3]
-        [:li.tense-row {:key subject}
-         [:span (str subject " " verb)]
-         ])]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [clojure.string :refer [starts-with? replace-first]]
+            [reagent.session :as session]
+            [flash.data :refer [db]]
+            [flash.routes :refer [reference]]
+            [flash.components.omni-select :refer [omni-select]]
+            [secretary.core :as secretary :include-macros true]
+            [accountant.core :as accountant]))
 
 (defn home-page [])
 
+(defn form-key->subject [form-key]
+  ({"form_1s" "yo"
+    "form_2s" "tú"
+    "form_3s" "él/ella/Ud."
+    "form_1p" "nosotros"
+    "form_2p" "vosotros"
+    "form_3p" "ellos/ellas/Uds."
+    } form-key)
+  )
+
+(defn verb-intro [v]
+  [:div
+   [:div (str "Gerund: " (v "gerund"))]
+   [:div (str "Past Participle: " (v "pastparticiple"))]])
+
+(defn verb-heading [infinitive-eng infinitive-span]
+  [:h2 (str infinitive-span " - " infinitive-eng)])
+
+(defn conjugaction-useage-col [verbs]
+  [:div
+   (for [[k v] verbs]
+     [:div {:key (str k v)} (str (form-key->subject k) ": " v)])])
+
+(defn conjugation-useage [verbs]
+  (let [[first-3 last-3] (partition-all 3 verbs)]
+    [:div
+     [conjugaction-useage-col first-3]
+     [conjugaction-useage-col last-3]]))
+
+(defn conjugation-list [verbs]
+  (for [[k v] verbs]
+    [:div {:key k}
+     [:h3 k]
+     [conjugation-useage v]]))
+
+(defn verb-cont [useage]
+  (for [[k v] useage]
+    [:div {:key k}
+     [:h2 k]
+     (conjugation-list v)]))
+
 (defn reference-page []
-  (let [verb (get-in (session/get :active-route) [:params :verb])]
-    [:div [:h2 verb]
-     [:div
-      (for [[tense tenses] (verbs verb)]
-        [:div.verb-card {:key (str verb "-" tense)}
-         [:h3 [:a {:href "#"} tense]]
-         [verb-list tenses]])]]))
+  (let [verb (get-in (session/get :active-route) [:params :verb])
+        {verb-useage "useage" verb-meta "meta"} (@db :active-verb)
+        loading (@db :active-verb-loading)]
+    (if-not loading
+      [:div
+       [verb-heading (verb-meta "infinitive_english") (verb-meta "infinitive")]
+       [:div
+        (verb-intro verb-meta)
+        [:hr ]
+        (verb-cont verb-useage)]])
+    ))
 
 (defn current-page []
   (let [{:keys [page params]} (session/get :active-route)

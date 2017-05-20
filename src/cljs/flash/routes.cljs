@@ -7,13 +7,15 @@
               [accountant.core :as accountant]))
 
 (secretary/defroute home "/" []
-  (session/put! :active-route {:page :home-page :params nil})
-  )
+  (session/put! :active-route {:page :home-page :params nil}))
 
 (secretary/defroute reference "/reference/:verb" {:as params}
   (do
-    (ajax/GET (str "/api/verb/" (params :verb)))
-              {:handler #(swap! db assoc :active-verb %)
-               :error-handler #(println "error fetching verb")}
+    (swap! db assoc :active-verb-loading true)
+    (ajax/GET (str "/api/verb/" (params :verb))
+              {:handler (fn [res]
+                          (swap! db assoc :active-verb-loading false)
+                          (swap! db assoc :active-verb res))
+               :error-handler #(println "error fetching verb")})
     (session/put! :active-route {:page :reference-page :params params}))
   )

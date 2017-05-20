@@ -17,7 +17,7 @@
 (defn filter-verbs [verbs input-value]
   (if (empty? input-value)
     '()
-    (filter #(starts-with? % input-value) (keys verbs))))
+    (take 15 (filter #(starts-with? % input-value) (keys verbs)))))
 
 (defn submit-handler [e on-change]
   (let [suggestion (get-active-suggestion @db)

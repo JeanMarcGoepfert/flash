@@ -4,7 +4,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
-  color: #333;
+  color: @color-dark-grey;
   line-height: 1.2;
 }
 
@@ -17,4 +17,29 @@ body {
   padding-top: 72px;
   padding: 70px 15px;
   margin: 0 auto;
+}
+
+.verb-intro {
+  font-size: @font-size-lg;
+}
+
+.verb-cont {
+  .verb-row {
+    margin: @spacing-xs 0;
+  }
+
+  .verb-cols {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+  .verb-col {
+    @media only screen and (min-width: @breakpoint-md) {
+      float: left;
+      width: 50%;
+    }
+  }
 }

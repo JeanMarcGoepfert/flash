@@ -4,7 +4,7 @@
 }
 .omni-select .input {
   padding: 0.8em;
-  font-size: 2em;
+  font-size: 1.4em;
   border: 0;
   display: inline-block;
   width: 100%;
@@ -20,7 +20,7 @@
 .omni-select .input-suggestion-text {
   display: inline-block;
   padding: 0.8em;
-  font-size: 2em;
+  font-size: 1.4em;
   padding-right: 0;
   border: 0;
 }

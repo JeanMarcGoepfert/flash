@@ -1,6 +1,6 @@
 (ns flash.components.verb-intro)
 
 (defn verb-intro [v]
-  [:div
-   [:div (str "Gerund: " (v "gerund"))]
-   [:div (str "Past Participle: " (v "pastparticiple"))]])
+  [:div.verb-intro
+   [:p [:strong "gerund: "] (v "gerund")]
+   [:p [:strong "past participle: "] (v "pastparticiple")]])

@@ -10,13 +10,16 @@
     } form-key))
 
 (defn- conjugaction-useage-col [verbs]
-  [:div
+  [:div.verb-col
    (for [[k v] verbs]
-     [:div {:key (str k v)} (str (form-key->subject k) ": " v)])])
+     [:div.verb-row
+      {:key (str k v)}
+      [:strong (str (form-key->subject k) " ")]
+      v])])
 
 (defn- conjugation-useage [verbs]
   (let [[first-3 last-3] (partition-all 3 verbs)]
-    [:div
+    [:div.verb-cols
      [conjugaction-useage-col first-3]
      [conjugaction-useage-col last-3]]))
 
@@ -28,7 +31,7 @@
       [conjugation-useage v]])])
 
 (defn verb-cont [useage]
-  [:div
+  [:div.verb-cont
    (for [[k v] useage]
      [:div {:key k}
       [:h2 k]

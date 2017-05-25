@@ -49,11 +49,9 @@
       (some true? inc-predicates) dec
       :else nil)))
 
-
 (defn key-down-handler [e]
   (let [inc-or-dec (determine-increment e)
         has-input? (not (empty? (@db :verb-input)))]
-    (println inc-or-dec)
     (if (and inc-or-dec has-input?)
       (let [current-tab-index (@db :option-tab-index)]
         (.preventDefault e)

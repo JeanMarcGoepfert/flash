@@ -3,7 +3,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   color: #333;
-  line-height: 1.2em;
+  line-height: 1.2;
 }
 *,
 *:before,
@@ -97,7 +97,8 @@ input:focus {
   display: none;
 }
 .page-wrapper {
-  max-width: 750px;
+  max-width: 900px;
   padding-top: 72px;
+  padding: 70px 15px;
   margin: 0 auto;
 }

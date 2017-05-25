@@ -33,14 +33,28 @@
   (reset-input-state)
   (on-change verb))
 
-(defn key-down-handler [e]
+(defn determine-increment [event]
   (let [tab-keycode 9
-        pressed-keycode (.-keyCode e)
-        shift-key-held? (.-shiftKey e)
-        tab-pressed? (= tab-keycode pressed-keycode)
-        inc-or-dec (if shift-key-held? dec inc)
+        up-keycode 38
+        down-keycode 40
+        pressed-keycode (.-keyCode event)
+        shift-held? (.-shiftKey event)
+        up-pressed? (= pressed-keycode up-keycode)
+        down-pressed? (= pressed-keycode down-keycode)
+        tab-pressed? (= pressed-keycode tab-keycode)
+        inc-predicates [up-pressed? (and tab-pressed? shift-held?)]
+        dec-predicates [down-pressed? (and tab-pressed? (not shift-held?))]]
+    (cond
+      (some true? dec-predicates) inc
+      (some true? inc-predicates) dec
+      :else nil)))
+
+
+(defn key-down-handler [e]
+  (let [inc-or-dec (determine-increment e)
         has-input? (not (empty? (@db :verb-input)))]
-    (if (and tab-pressed? has-input?)
+    (println inc-or-dec)
+    (if (and inc-or-dec has-input?)
       (let [current-tab-index (@db :option-tab-index)]
         (.preventDefault e)
         (swap! db

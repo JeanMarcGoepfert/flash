@@ -101,31 +101,3 @@ input:focus {
   padding-top: 72px;
   margin: 0 auto;
 }
-.verb-card {
-  margin: 0.8em 0;
-  clear: both;
-}
-.verb-card:after,
-.verb-card:before {
-  content: "";
-  clear: both;
-  display: block;
-}
-.verb-card .tense-column {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 50%;
-  float: left;
-}
-.verb-card .tense-column:last-child {
-  border-right: 1px solid #cccccc;
-}
-.verb-card .tense-row {
-  padding: 0.8em;
-  border-left: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
-}
-.verb-card .tense-row:first-child {
-  border-top: 1px solid #cccccc;
-}

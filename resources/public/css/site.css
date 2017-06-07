@@ -4,6 +4,8 @@ body {
   font-size: 14px;
   color: #333333;
   line-height: 1.2;
+  padding: 0;
+  margin: 0;
 }
 *,
 *:before,
@@ -48,6 +50,7 @@ hr {
 .omni-select .input-wrapper {
   position: relative;
   border: 1px solid #cccccc;
+  background-color: #fff;
 }
 .omni-select .input {
   padding: 0.8em;
@@ -105,11 +108,50 @@ hr {
 .omni-select .button {
   display: none;
 }
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+  background-color: #333;
+  border-radius: 100%;
+  animation: scaleout 1s infinite ease-in-out;
+}
+@keyframes scaleout {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 .page-wrapper {
+  padding-bottom: 1.2em;
+}
+.loader-wrapper {
+  padding-top: 1.4em;
+}
+.not-found {
+  text-align: center;
+  padding-top: 1.4em;
+}
+.align-center {
+  text-align: center;
+}
+.content-wrapper {
+  padding: 0 15px;
   max-width: 900px;
-  padding-top: 72px;
-  padding: 70px 15px;
   margin: 0 auto;
+}
+.input-section {
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #cccccc;
+  padding: 1.6em 0;
+}
+.title-section {
+  background-color: #f9f9f9;
+  padding: 0.8em 0 1.6em;
+  border-bottom: 1px solid #e8e8e8;
 }
 .verb-intro {
   font-size: 1.2em;

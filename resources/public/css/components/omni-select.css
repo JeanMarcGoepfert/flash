@@ -1,6 +1,7 @@
 .omni-select .input-wrapper {
   position: relative;
   border: 1px solid #cccccc;
+  background-color: #fff;
 }
 .omni-select .input {
   padding: 0.8em;

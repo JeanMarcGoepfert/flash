@@ -14,8 +14,8 @@
     (swap! db assoc :active-verb-loading true)
     (ajax/GET (str "/api/verb/" (params :verb))
               {:handler (fn [res]
-                          (swap! db assoc :active-verb-loading false)
-                          (swap! db assoc :active-verb res))
+                          (swap! db assoc :active-verb res)
+                          (swap! db assoc :active-verb-loading false))
                :error-handler #(println "error fetching verb")})
     (session/put! :active-route {:page :reference-page :params params}))
   )

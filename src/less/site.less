@@ -6,17 +6,49 @@ body {
   font-size: 14px;
   color: @color-dark-grey;
   line-height: 1.2;
+  padding: 0;
+  margin: 0;
 }
 
 @import "reset";
 @import "components/omni-select";
+@import "components/loading-spinner";
 
 //pages
+
 .page-wrapper {
+  padding-bottom: @spacing-lg;
+}
+
+.loader-wrapper {
+  padding-top: @spacing-xl;
+}
+
+.not-found {
+  text-align: center;
+  padding-top: @spacing-xl;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.content-wrapper {
+  padding: 0 15px;
   max-width: 900px;
-  padding-top: 72px;
-  padding: 70px 15px;
   margin: 0 auto;
+}
+
+.input-section {
+  background-color: @color-light-grey;
+  border-bottom: 1px solid @color-grey;
+  padding: @spacing-xxl 0;
+}
+
+.title-section {
+  background-color: #f9f9f9;
+  padding: @spacing-sm 0 @spacing-xxl;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .verb-intro {

@@ -20,8 +20,6 @@
 (defn mount-root []
   (reagent/render [app] (.getElementById js/document "app")))
 
-;(fetch-initial-data)
-
 (defn init! []
   (accountant/configure-navigation!
     {:nav-handler #(secretary/dispatch! %)

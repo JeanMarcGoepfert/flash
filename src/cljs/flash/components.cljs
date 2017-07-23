@@ -15,9 +15,6 @@
   [:div.content-wrapper
    [:p.align-center "Conjugate any Spanish verb. Simply type in the box above and hit enter"]])
 
-(defn loadable [loading children]
-  (if loading [:div.loading-spinner] children))
-
 (defn not-found []
   [:div.not-found
    [:h1 "Sorry, this page not found."]
@@ -27,14 +24,14 @@
   (let [verb (get-in (session/get :active-route) [:params :verb])
         {verb-useage "useage" verb-meta "meta"} (@db :active-verb)
         loading (@db :active-verb-loading)]
-    [loadable loading
+    (if loading [:div.loading-spinner]
      [:div
       [:div.title-section
        [:div.content-wrapper
         [verb-heading (verb-meta "infinitive_english") (verb-meta "infinitive")]
         [verb-intro verb-meta]]]
       [:div.content-wrapper
-       [verb-cont verb-useage]]]]))
+       [verb-cont verb-useage]]])))
 
 (defn current-page []
   (let [{:keys [page params]} (session/get :active-route)

@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.8.0"]
+                 [bk/ring-gzip "0.2.1"]
                  [ring-server "0.4.0"]
                  [reagent "0.6.1"]
                  [reagent-utils "0.2.0"]
@@ -102,7 +103,7 @@
                                   [prone "1.1.4"]
                                   [figwheel-sidecar "0.5.8"]
                                   [org.clojure/tools.nrepl "0.2.12"]
-                                  [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
+                                  [com.cemerick/piggieback "0.2.2"]
                                   [pjstadig/humane-test-output "0.8.1"]
                                   ]
 

@@ -15,23 +15,31 @@
   [:div.content-wrapper
    [:p.align-center "Conjugate any Spanish verb. Simply type in the box above and hit enter"]])
 
-(defn not-found []
-  [:div.not-found
-   [:h1 "Sorry, this page not found."]
-   [:a {:href "/"} "Go home"]])
+(defn not-found
+  ([]
+   [:div.not-found
+    [:h1 "Sorry, this page not found."]
+    [:a {:href "/"} "Go home"]])
+  ([custom-message]
+   [:div.not-found
+    [:h1 custom-message]
+    [:a {:href "/"} "Go home"]]))
 
 (defn reference-page [params]
   (let [verb (get-in (session/get :active-route) [:params :verb])
         {verb-useage "useage" verb-meta "meta"} (@db :active-verb)
         loading (@db :active-verb-loading)]
     (if loading [:div.loading-spinner]
-     [:div
-      [:div.title-section
-       [:div.content-wrapper
-        [verb-heading (verb-meta "infinitive_english") (verb-meta "infinitive")]
-        [verb-intro verb-meta]]]
-      [:div.content-wrapper
-       [verb-cont verb-useage]]])))
+       (if verb-meta
+         [:div
+          [:div.title-section
+           [:div.content-wrapper
+            [verb-heading (verb-meta "infinitive_english") (verb-meta "infinitive")]
+            [verb-intro verb-meta]]]
+          [:div.content-wrapper
+           [verb-cont verb-useage]]]
+         [not-found (str "Sorry, we couldn't find the verb: " verb)]
+         ))))
 
 (defn current-page []
   (let [{:keys [page params]} (session/get :active-route)

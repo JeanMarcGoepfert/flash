@@ -16,6 +16,8 @@
               {:handler (fn [res]
                           (swap! db assoc :active-verb res)
                           (swap! db assoc :active-verb-loading false))
-               :error-handler #(println "error fetching verb")})
+               :error-handler (fn []
+                                (swap! db assoc :active-verb {})
+                                (swap! db assoc :active-verb-loading false))})
     (session/put! :active-route {:page :reference-page :params params}))
   )

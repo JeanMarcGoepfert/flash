@@ -34,13 +34,10 @@
   {:body verb-lists})
 
 (defn get-verb [{params :params}]
-  (let [verb (params :verb)]
+  (let [verb (verbs (params :verb))]
     (if verb
-      {:body (verbs (params :verb))}
-      {:status 404 :message "Verb not found"}
-      ))
-
-  {:body (verbs (params :verb))})
+      {:body verb}
+      {:status 404 :body {:message "Verb not found"}})))
 
 (defroutes api-routes
   (context

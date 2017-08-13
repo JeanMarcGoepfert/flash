@@ -1,4 +1,4 @@
-(ns flash.components.verb-cont)
+(ns flash.components.verb-content)
 
 (defn- form-key->subject [form-key]
   ({"form_1s" "yo"
@@ -30,7 +30,7 @@
       [:h3 k]
       [conjugation-useage v]])])
 
-(defn verb-cont [useage]
+(defn verb-content [useage]
   [:div.verb-cont
    (for [[k v] useage]
      [:div {:key k}

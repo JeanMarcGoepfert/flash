@@ -6,7 +6,7 @@
             [flash.components.omni-select :refer [omni-select]]
             [flash.components.verb-heading :refer [verb-heading]]
             [flash.components.verb-intro :refer [verb-intro]]
-            [flash.components.verb-cont :refer [verb-cont]]
+            [flash.components.verb-content :refer [verb-content]]
             [secretary.core :as secretary :include-macros true]
             [accountant.core :as accountant]))
 
@@ -24,21 +24,24 @@
     [:h1 custom-message]
     [:a {:href "/"} "Go home"]]))
 
+(defn reference-content [verb-meta verb-useage]
+  [:div
+   [:div.title-section
+    [:div.content-wrapper
+     [verb-heading (verb-meta "infinitive_english") (verb-meta "infinitive")]
+     [verb-intro verb-meta]]]
+   [:div.content-wrapper
+    [verb-content verb-useage]]])
+
 (defn reference-page [params]
   (let [verb (get-in (session/get :active-route) [:params :verb])
         {verb-useage "useage" verb-meta "meta"} (@db :active-verb)
-        loading (@db :active-verb-loading)]
-    (if loading [:div.loading-spinner]
-       (if verb-meta
-         [:div
-          [:div.title-section
-           [:div.content-wrapper
-            [verb-heading (verb-meta "infinitive_english") (verb-meta "infinitive")]
-            [verb-intro verb-meta]]]
-          [:div.content-wrapper
-           [verb-cont verb-useage]]]
-         [not-found (str "Sorry, we couldn't find the verb: " verb)]
-         ))))
+        loading (@db :active-verb-loading)
+        not-found-msg (str "Sorry, we couldn't find the verb: " verb)]
+    (cond
+      loading [:div.loading-spinner]
+      (nil? verb-meta) [not-found not-found-msg]
+      :else [reference-content verb-meta verb-useage])))
 
 (defn current-page []
   (let [{:keys [page params]} (session/get :active-route)

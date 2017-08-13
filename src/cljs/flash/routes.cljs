@@ -9,7 +9,7 @@
 (secretary/defroute home "/" []
   (session/put! :active-route {:page :home-page :params nil}))
 
-(secretary/defroute reference "/reference/:verb" {:as params}
+(secretary/defroute reference "/:verb" {:as params}
   (do
     (swap! db assoc :active-verb-loading true)
     (ajax/GET (str "/api/verb/" (params :verb))

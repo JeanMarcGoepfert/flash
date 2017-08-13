@@ -1,4 +1,7 @@
-(ns flash.components.verb-content)
+(ns flash.components.verb-content
+  (:require [reagent.session :as session]
+            [flash.util :refer [str->dashcase dashcase->str]]
+            [flash.data :refer [db]]))
 
 (defn- form-key->subject [form-key]
   ({"form_1s" "yo"
@@ -30,9 +33,20 @@
       [:h3 k]
       [conjugation-useage v]])])
 
-(defn verb-content [useage]
-  [:div.verb-cont
+(defn- mood-list [useage verb]
+  [:div
    (for [[k v] useage]
      [:div {:key k}
-      [:h2 k]
+      [:h2
+       [:a {:href (str "/" verb "/" (str->dashcase k))} k]]
       [conjugation-list v]])])
+
+(defn verb-content []
+  (let [{verb :verb mood :mood} (get-in (session/get :active-route) [:params])
+        {useage "useage"} (@db :active-verb)]
+    [:div.verb-cont
+     (cond
+       (not-empty mood) [mood-list (filter (fn [[k v]] (= k (dashcase->str mood))) useage) verb]
+       :else [mood-list useage verb]
+       )
+     ]))

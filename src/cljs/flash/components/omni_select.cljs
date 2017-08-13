@@ -1,6 +1,6 @@
 (ns flash.components.omni-select
     (:require [reagent.core :as reagent :refer [atom]]
-              [clojure.string :refer [starts-with? replace-first]]))
+              [clojure.string :refer [starts-with? replace-first lower-case]]))
 
 (def db-defaults {:verb-input ""
                   :suggestions []
@@ -62,7 +62,7 @@
 
 (defn change-handler [value verbs]
   (let [new-state {:verb-input value
-                   :suggestions (filter-verbs verbs value)
+                   :suggestions (filter-verbs verbs (lower-case value))
                    :option-tab-index 0}]
     (reset! db new-state)))
 

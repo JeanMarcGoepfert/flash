@@ -1,6 +1,5 @@
 (ns flash.components
   (:require [reagent.core :as reagent :refer [atom]]
-            [clojure.string :refer [starts-with? replace-first lower-case]]
             [reagent.session :as session]
             [flash.data :refer [db]]
             [flash.routes :refer [reference]]
@@ -51,7 +50,7 @@
       [:div [not-found]])))
 
 (defn on-change [value]
-  (accountant/navigate! (reference {:verb (lower-case value)})))
+  (accountant/navigate! (reference {:verb value})))
 
 (defn app []
   [:div.page-wrapper

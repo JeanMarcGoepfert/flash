@@ -57,10 +57,12 @@ body {
 
 .verb-cont {
   .verb-row {
-    margin: @spacing-xs 0;
+    margin-bottom: @spacing-xs;
   }
 
   .verb-cols {
+    padding-left: @spacing-lg;
+
     &:after {
       content: "";
       display: table;
@@ -73,5 +75,9 @@ body {
       float: left;
       width: 50%;
     }
+  }
+
+  .tenses {
+    padding-left: @spacing-lg;
   }
 }

@@ -10,7 +10,7 @@ h3 {
 }
 h1 {
   font-size: 1.6em;
-  margin: 1em 0;
+  margin: 1.2em 0;
 }
 h2 {
   font-size: 1.4em;
@@ -18,7 +18,7 @@ h2 {
 }
 h3 {
   font-size: 1.2em;
-  margin: 1em 0;
+  margin: 0.8em 0;
 }
 a {
   text-decoration: none;
@@ -37,4 +37,7 @@ hr {
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #cccccc;
+}
+p {
+  margin-bottom: 0.8em;
 }

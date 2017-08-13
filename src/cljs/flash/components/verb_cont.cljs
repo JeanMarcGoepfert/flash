@@ -24,7 +24,7 @@
      [conjugaction-useage-col last-3]]))
 
 (defn- conjugation-list [verbs]
-  [:div
+  [:div.tenses
    (for [[k v] verbs]
      [:div {:key k}
       [:h3 k]

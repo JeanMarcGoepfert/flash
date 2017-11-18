@@ -25,7 +25,7 @@
     (head)
     [:body {:class "body-container"}
      mount-target
-     (if-not (env :dev) (slurp "resources/public/js/analytics.js"))
+     (if-not (env :dev) (slurp "resources/analytics.js"))
      (include-js "/js/app.js")]))
 
 (def verbs

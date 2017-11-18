@@ -13,7 +13,14 @@
 
 (defn home-page []
   [:div.content-wrapper
-   [:p.align-center "Conjugate any Spanish verb. Simply type in the box above and hit enter"]])
+   [:p.align-center
+    "Conjugate Spanish verbs by typing them into the box above."]
+   [:div.todays-content
+    [:h2.link
+     [:span
+     "Todays Verb: "]
+     [:a.link {:href "/aprender"} "Aprender - To Learn"]]
+    ]])
 
 (defn not-found []
   [:div.not-found
@@ -30,25 +37,60 @@
       [verb-heading (verb-meta "infinitive_english") (verb-meta "infinitive")]
       [verb-intro verb-meta]]]))
 
-(defn reference-content [verb-meta]
+(defn pagination []
+  (let [prev (@db :prev)
+        next (@db :next)]
+    [:div.pagination
+     [:span.prev
+      [:span "Previous Verb: "]
+      [:a.link {:href (str "/" prev)} prev]]
+     [:span.next
+      [:span "Next Verb: "]
+      [:a.link {:href (str "/" next)} next]]]))
+
+(defn reference-content [content verb]
   [:div
    [title-section]
    [:div.content-wrapper
-    [verb-content]]])
+    [pagination]
+    [verb-content content verb]
+    [pagination]]])
 
-(defn reference-page [params]
-  (let [active-verb (@db :active-verb)
+(defn verb-page [params]
+  (let [content (get-in @db [:active-verb "useage"])
+        {verb :verb} (get-in (session/get :active-route) [:params])
         loading (@db :active-verb-loading)]
     (cond
       loading [:div.loading-spinner]
+      (empty? content) [not-found]
+      :else [reference-content content (dashcase->str verb)])))
+
+(defn mood-page [params]
+  (let [active-verb (@db :active-verb)
+        {mood :mood verb :verb} (get-in (session/get :active-route) [:params])
+        loading (@db :active-verb-loading)
+        content {mood (get-in active-verb ["useage" (dashcase->str mood)])}]
+    (cond
+      loading [:div.loading-spinner]
+      (empty? content) [not-found]
+      :else [reference-content content (dashcase->str verb)])))
+
+(defn tense-page [params]
+  (let [active-verb (@db :active-verb)
+        {mood :mood tense :tense verb :verb} (get-in (session/get :active-route) [:params])
+        loading (@db :active-verb-loading)
+        content {mood {tense (get-in active-verb ["useage" (dashcase->str mood) (dashcase->str tense)])}}]
+    (cond
+      loading [:div.loading-spinner]
       (empty? active-verb) [not-found]
-      :else [reference-content])))
+      :else [reference-content content (dashcase->str verb)])))
 
 (defn current-page []
   (let [{:keys [page params]} (session/get :active-route)
         pages {:home-page home-page
-               :reference-page reference-page
-               :mood-page reference-page}
+               :reference-page verb-page
+               :mood-page mood-page
+               :tense-page tense-page}
         component (pages page)]
     (if component
       [:div [component params]]

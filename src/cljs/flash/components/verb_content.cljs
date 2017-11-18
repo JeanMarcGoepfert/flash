@@ -26,27 +26,17 @@
      [conjugaction-useage-col first-3]
      [conjugaction-useage-col last-3]]))
 
-(defn- conjugation-list [verbs]
+(defn- conjugation-list [mood-values mood verb]
   [:div.tenses
-   (for [[k v] verbs]
+   (for [[k v] mood-values]
      [:div {:key k}
-      [:h3 k]
+      [:h3 [:a {:href (str "/" verb "/" (str->dashcase mood) "/" (str->dashcase k))} k]]
       [conjugation-useage v]])])
 
-(defn- mood-list [useage verb]
-  [:div
-   (for [[k v] useage]
-     [:div {:key k}
+(defn- verb-content [useage verb]
+  [:div.verb-cont
+   (for [[mood mood-values] useage]
+     [:div {:key mood}
       [:h2
-       [:a {:href (str "/" verb "/" (str->dashcase k))} k]]
-      [conjugation-list v]])])
-
-(defn verb-content []
-  (let [{verb :verb mood :mood} (get-in (session/get :active-route) [:params])
-        {useage "useage"} (@db :active-verb)]
-    [:div.verb-cont
-     (cond
-       (not-empty mood) [mood-list (filter (fn [[k v]] (= k (dashcase->str mood))) useage) verb]
-       :else [mood-list useage verb]
-       )
-     ]))
+       [:a {:href (str "/" verb "/" (str->dashcase mood))} mood]]
+      [conjugation-list mood-values mood verb]])])

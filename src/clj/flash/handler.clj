@@ -22,21 +22,34 @@
     (head)
     [:body {:class "body-container"}
      mount-target
+     (if (env :prod) (slurp "resources/public/js/analytics.js"))
      (include-js "/js/app.js")]))
 
 (def verbs
   (json/parse-string (slurp "resources/verbs.json")))
 
 (def verb-lists
-  (into {} (map (fn [[k v]] [k (v :meta :verb_english)]) verbs)))
+  (into {} (map (fn [[k v]] [k (get-in v ["meta" "verb_english"])]) verbs)))
+
+(def verb-vector
+  (keys verb-lists))
 
 (defn verb-list []
   {:body verb-lists})
 
+(defn getNext [verb]
+  (let [index (.indexOf verb-vector verb)]
+    (nth verb-vector (+ index 1) (first verb-vector))))
+
+(defn getPrev [verb]
+  (let [index (.indexOf verb-vector verb)]
+    (println index)
+    (nth verb-vector (- index 1) (last verb-vector))))
+
 (defn get-verb [{params :params}]
   (let [verb (verbs (params :verb))]
     (if verb
-      {:body verb}
+      {:body {:verb verb :prev (getPrev (params :verb)) :next (getNext (params :verb))}}
       {:status 404 :body {:message "Verb not found"}})))
 
 (defroutes api-routes

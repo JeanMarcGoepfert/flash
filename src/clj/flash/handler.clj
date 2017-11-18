@@ -13,6 +13,9 @@
 (defn head []
   [:head
    [:meta {:charset "utf-8"}]
+   [:title "Spanish verb conjugation reference"]
+   [:meta {:name "description"
+           :content "Conjugate spanish verbs to any tense and mood"}]
    [:meta {:name "viewport"
            :content "width=device-width, initial-scale=1"}]
    (include-css (if (env :dev) "/css/site.css" "/css/site.min.css"))])
@@ -22,7 +25,7 @@
     (head)
     [:body {:class "body-container"}
      mount-target
-     (if (env :prod) (slurp "resources/public/js/analytics.js"))
+     (if-not (env :dev) (slurp "resources/public/js/analytics.js"))
      (include-js "/js/app.js")]))
 
 (def verbs

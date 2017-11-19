@@ -84,9 +84,8 @@
 (defn suggestion-text [input-suggestion input-value]
   [:span.input-suggestion-wrapper
    [:span.input-suggestion-text.common input-value]
-   [:input.input-suggestion-text.remaining
-    {:value (replace-first input-suggestion (re-pattern input-value) "")
-     :read-only true}]])
+   [:span.input-suggestion-text.remaining
+    (replace-first input-suggestion (re-pattern input-value) "")]])
 
 (defn input [verbs input-value]
   [:input.input

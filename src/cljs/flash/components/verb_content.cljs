@@ -26,9 +26,28 @@
      [conjugaction-useage-col first-3]
      [conjugaction-useage-col last-3]]))
 
+(defn order-by [order values]
+  (reduce (fn [acc v]
+            (if (values v)
+              (conj acc [v (values v)])
+              acc)
+            ) [] order))
+
+(def order
+  ["present"
+   "future"
+   "preterite"
+   "imperfect"
+   "conditional"
+   "present perfect"
+   "past perfect"
+   "future perfect"
+   "conditional perfect"
+   ])
+
 (defn conjugation-list [mood-values mood verb]
   [:div.tenses
-   (for [[k v] mood-values]
+   (for [[k v] (order-by order mood-values)]
      [:div {:key k}
       [:h3.capitalise [:a {:href (str "/" verb "/" (str->dashcase mood) "/" (str->dashcase k))
                 :title (str verb " " mood " spanish conjugation")

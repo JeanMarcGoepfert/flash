@@ -2,6 +2,7 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [reagent.session :as session]
             [flash.data :refer [db]]
+            [clojure.string :refer [join]]
             [flash.routes :refer [reference]]
             [flash.util :refer [str->dashcase dashcase->str]]
             [flash.components.omni-select :refer [omni-select]]
@@ -40,14 +41,17 @@
 
 (defn pagination []
   (let [prev (@db :prev)
-        next (@db :next)]
-    [:div.pagination
+        next (@db :next)
+        {mood :mood tense :tense} (get-in (session/get :active-route) [:params])
+        prev-link (str "/" (join "/" (remove nil? [prev mood tense])))
+        next-link (str "/" (join "/" (remove nil? [next mood tense])))]
+    [:div.pagination.capitalise
      [:span.prev
       [:span "Previous: "]
-      [:a.link {:href (str "/" prev) :title (str prev " spanish conjugation")} prev]]
+      [:a.link {:href prev-link :title (str prev " spanish conjugation")} prev]]
      [:span.next
       [:span "Next: "]
-      [:a.link {:href (str "/" next) :title (str next " spanish conjucation")} next]]]))
+      [:a.link {:href next-link :title (str next " spanish conjucation")} next]]]))
 
 (defn verb-page [params]
   (let [content (get-in @db [:active-verb "useage"])
@@ -64,7 +68,7 @@
                [pagination]]]])))
 
 (defn bread-crumbs [{links :links}]
-  [:ul.bread-crumbs
+  [:ul.bread-crumbs.capitalise
    (for [link (butlast links)]
      (let [{href :href text :text title :title} link]
        [:li.bread-crumb {:key text}

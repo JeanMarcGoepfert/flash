@@ -32,7 +32,7 @@
   (json/parse-string (slurp "resources/verbs.json")))
 
 (def verb-lists
-  (into {} (map (fn [[k v]] [k (get-in v ["meta" "verb_english"])]) verbs)))
+  (into (sorted-map) (map (fn [[k v]] [k (get-in v ["meta" "verb_english"])]) verbs)))
 
 (def verb-vector
   (keys verb-lists))

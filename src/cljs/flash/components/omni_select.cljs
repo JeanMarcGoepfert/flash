@@ -85,7 +85,7 @@
   [:span.input-suggestion-wrapper
    [:span.input-suggestion-text.common input-value]
    [:span.input-suggestion-text.remaining
-    (replace-first input-suggestion (re-pattern input-value) "")]])
+    (subs input-suggestion (count input-value))]])
 
 (defn input [verbs input-value]
   [:input.input

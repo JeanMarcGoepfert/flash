@@ -3,6 +3,7 @@
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
   font-size: 14px;
   color: @color-dark-grey;
   line-height: 1.2;
@@ -13,6 +14,10 @@ body {
 @import "reset";
 @import "components/omni-select";
 @import "components/loading-spinner";
+
+.capitalise {
+  text-transform: capitalize;
+}
 
 //pages
 
@@ -61,8 +66,6 @@ body {
   }
 
   .verb-cols {
-    padding-left: @spacing-lg;
-
     &:after {
       content: "";
       display: table;
@@ -75,10 +78,6 @@ body {
       float: left;
       width: 50%;
     }
-  }
-
-  .tenses {
-    padding-left: @spacing-lg;
   }
 }
 
@@ -105,5 +104,31 @@ body {
 
   .link {
     font-style: italic;
+  }
+}
+
+.bread-crumbs {
+  list-style: none;
+  padding: 0;
+  display: block;
+  font-size: 1.4em;
+  font-weight: 700;
+
+  .bread-crumb {
+    display: inline-block;
+    margin-right: 10px;
+
+    & + .bread-crumb {
+      &:before {
+        content: "»";
+        display: inline-block;
+        margin-right: 10px;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .active {
+    text-decoration: underline;
   }
 }

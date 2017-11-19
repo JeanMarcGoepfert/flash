@@ -1,4 +1,5 @@
 .omni-select .input-wrapper {
+  z-index: 1;
   position: relative;
   border: 1px solid #cccccc;
   background-color: #fff;
@@ -30,9 +31,9 @@
 }
 .omni-select .input-suggestion-text.remaining {
   position: relative;
-  margin-left: -0.9px;
+  margin-left: 1px;
   padding-left: 0;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 .omni-select .tab-suggestions-wrapper {
   position: relative ;
@@ -57,5 +58,7 @@
   background-color: #f1f1f1;
 }
 .omni-select .button {
-  display: none;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
 }

@@ -20,23 +20,27 @@
       [:strong (str (form-key->subject k) " ")]
       v])])
 
-(defn- conjugation-useage [verbs]
+(defn conjugation-useage [verbs]
   (let [[first-3 last-3] (partition-all 3 verbs)]
     [:div.verb-cols
      [conjugaction-useage-col first-3]
      [conjugaction-useage-col last-3]]))
 
-(defn- conjugation-list [mood-values mood verb]
+(defn conjugation-list [mood-values mood verb]
   [:div.tenses
    (for [[k v] mood-values]
      [:div {:key k}
-      [:h3 [:a {:href (str "/" verb "/" (str->dashcase mood) "/" (str->dashcase k))} k]]
+      [:h3.capitalise [:a {:href (str "/" verb "/" (str->dashcase mood) "/" (str->dashcase k))
+                :title (str verb " " mood " spanish conjugation")
+                } k]]
       [conjugation-useage v]])])
 
-(defn- verb-content [useage verb]
+(defn verb-content [useage verb]
   [:div.verb-cont
    (for [[mood mood-values] useage]
      [:div {:key mood}
-      [:h2
-       [:a {:href (str "/" verb "/" (str->dashcase mood))} mood]]
+      [:h2.capitalise
+       [:a {:href (str "/" verb "/" (str->dashcase mood))
+            :title (str verb " " mood " spanish conjugation")
+            } mood]]
       [conjugation-list mood-values mood verb]])])

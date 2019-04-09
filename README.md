@@ -1,4 +1,4 @@
-### Running
+### Running in dev
 
 `lein figwheel`
 
@@ -6,9 +6,7 @@
 
 http://localhost:3449/
 
-Generated with: https://github.com/reagent-project/reagent-template
-
-Production
+### Production
 
 lein uberjar
 
